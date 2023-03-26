@@ -73,6 +73,7 @@ Abrimos MongoDB Compass
 <a href="https://imgur.com/yOx6kPw"><img src="https://i.imgur.com/yOx6kPw.png" title="source: imgur.com" /></a>
 
 Creamos una nueva base de datos
+
 ![Kuepa Logo](https://imgur.com/X1HWalx.png)
 
 Y le asignamos estos nombres
