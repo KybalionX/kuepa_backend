@@ -84,7 +84,7 @@ Luego de esto, ya deberíamos tener nuestra base de datos NO relacional lista!
 
 ## Instalación 👨‍💻
 
-1. Clona el repositorio: `git clone https://github.com/KybalionX/kuepa_frontend`
+1. Clona el repositorio: `git clone https://github.com/KybalionX/kuepa_backend`
 2. Instala las dependencias: `npm install`
 
 ## Uso 🏁
