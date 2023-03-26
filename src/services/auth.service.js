@@ -11,15 +11,9 @@ export const login = async (req, res) => {
 		include: [Role],
 	});
 
-	if (!userMatched) {
+	if (!userMatched || !compareSync(password, userMatched.password)) {
 		return res.status(400).send({
-			message: `User with ${username} not found`,
-		});
-	}
-
-	if (!compareSync(password, userMatched.password)) {
-		return res.status(400).send({
-			message: 'Password invalid',
+			message: 'Credenciales no validas, revisa los datos e intenta de nuevo',
 		});
 	}
 
@@ -64,20 +58,30 @@ export const register = async (req, res) => {
 	}
 };
 
-export const validateToken = (req, res) => {
+export const validateToken = async (req, res) => {
 	const userToken = req.headers.authorization;
 
 	const tokenIsValid = verifyToken(userToken);
 
-	if (tokenIsValid) {
-		res.status(200).send({
-			message: 'Token is valid',
-			token: userToken,
-			userData: tokenIsValid.data
-		});
-	} else {
-		res.status(400).send({
+	if(!tokenIsValid){
+		return res.status(400).send({
 			message: 'NOT VALID TOKEN',
 		});
 	}
+
+	const userStillExist = await User.findOne({
+		where: { id: tokenIsValid.data.id },
+	});
+
+	if(!userStillExist){
+		return res.status(400).send({
+			message: 'User doesnt exist',
+		});
+	}
+
+	res.status(200).send({
+		message: 'Token is valid',
+		token: userToken,
+		userData: tokenIsValid.data
+	});
 };
